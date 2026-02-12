@@ -17,8 +17,7 @@ export default function AboutPage() {
       <div className="max-w-6xl mx-auto">
         <SectionLabel text="About" />
         <SectionTitle>
-          The person behind the{" "}
-          <span className="text-accent">solutions.</span>
+          <span className="text-accent">IT</span> Gets You There.
         </SectionTitle>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12 items-start">
