@@ -1,3 +1,4 @@
+import Image from "next/image";
 import SectionLabel from "@/components/SectionLabel";
 import SectionTitle from "@/components/SectionTitle";
 
@@ -21,13 +22,17 @@ export default function AboutPage() {
         </SectionTitle>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mt-12 items-start">
-          {/* Photo placeholder */}
+          {/* Photo */}
           <div className="relative w-[280px] h-[340px] mx-auto lg:mx-0">
-            <div className="absolute inset-0 border-2 border-border rounded-lg" />
             <div className="absolute inset-0 border-2 border-accent/30 rounded-lg translate-x-3 translate-y-3" />
-            <div className="absolute inset-0 bg-card rounded-lg flex items-center justify-center">
-              <span className="text-text-muted text-sm font-mono">Photo</span>
-            </div>
+            <Image
+              src="/robert.jpg"
+              alt="Robert Voroscak"
+              width={280}
+              height={340}
+              className="relative rounded-lg object-cover w-[280px] h-[340px] border-2 border-border"
+              priority
+            />
           </div>
 
           {/* Bio */}
