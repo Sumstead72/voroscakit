@@ -122,7 +122,7 @@ export default function Home() {
           </p>
           <Link
             href="/contact"
-            className="inline-block bg-accent text-primary font-semibold text-sm uppercase tracking-wide px-8 py-3 rounded-md transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:-translate-y-0.5"
+            className="inline-block bg-accent text-primary font-semibold text-sm uppercase tracking-wide px-8 py-3 rounded-md transition-all duration-200 hover:shadow-[0_0_20px_rgba(78,205,196,0.3)] hover:-translate-y-0.5"
           >
             Get in Touch
           </Link>
