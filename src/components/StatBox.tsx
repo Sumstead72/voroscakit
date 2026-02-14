@@ -6,11 +6,13 @@ export default function StatBox({
   label: string;
 }) {
   return (
-    <div className="text-center p-6 rounded-lg border border-border bg-card/50">
-      <div className="font-mono text-3xl font-bold text-accent mb-2">
+    <div className="text-center p-8 border border-border bg-card">
+      <span className="font-mono text-[2.5rem] font-bold text-accent block logo-glow">
         {value}
-      </div>
-      <div className="text-sm text-text-secondary">{label}</div>
+      </span>
+      <span className="text-xs text-text-secondary uppercase tracking-wide mt-2 block">
+        {label}
+      </span>
     </div>
   );
 }

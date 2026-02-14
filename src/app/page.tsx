@@ -1,28 +1,31 @@
-import Link from "next/link";
 import HeroSection from "@/components/HeroSection";
 import SectionLabel from "@/components/SectionLabel";
 import SectionTitle from "@/components/SectionTitle";
 import ServiceCard from "@/components/ServiceCard";
 import StatBox from "@/components/StatBox";
+import PageDivider from "@/components/PageDivider";
+import AboutSection from "@/components/AboutSection";
+import ServicesSection from "@/components/ServicesSection";
+import ContactSection from "@/components/ContactSection";
 
-const services = [
+const servicesPreview = [
   {
-    icon: "🔧",
+    icon: "⚡",
     title: "IT Strategy & Consulting",
     description:
-      "Align your technology with your business goals through expert guidance and planning.",
+      "Align your technology roadmap with business goals. Smart planning for sustainable growth.",
   },
   {
-    icon: "🛡️",
-    title: "Cybersecurity Solutions",
+    icon: "🔒",
+    title: "Cybersecurity",
     description:
-      "Protect your data and systems with comprehensive security assessments and protection.",
+      "Protect your data and systems with proactive security measures and best practices.",
   },
   {
     icon: "☁️",
     title: "Cloud Infrastructure",
     description:
-      "Migrate, manage, and optimize your cloud environment across AWS, Azure, and GCP.",
+      "Migrate, manage, and optimize your cloud environment for performance and cost efficiency.",
   },
   {
     icon: "🌐",
@@ -31,16 +34,16 @@ const services = [
       "Design, deploy, and maintain reliable networks that keep your business connected.",
   },
   {
-    icon: "⚡",
+    icon: "⚙️",
     title: "Workflow Automation",
     description:
-      "Streamline repetitive tasks with custom scripts, integrations, and automated workflows.",
+      "Eliminate repetitive tasks and streamline operations with intelligent automation solutions.",
   },
   {
-    icon: "💻",
+    icon: "🛠️",
     title: "Tech Support",
     description:
-      "Fast, friendly troubleshooting and maintenance — remote or on-site.",
+      "Fast, reliable troubleshooting and ongoing support to keep everything running smoothly.",
   },
 ];
 
@@ -54,6 +57,7 @@ const stats = [
 export default function Home() {
   return (
     <>
+      {/* ===== HOME ===== */}
       <HeroSection />
 
       {/* Services Preview */}
@@ -61,73 +65,76 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <SectionLabel text="What We Do" />
           <SectionTitle>
-            Solutions tailored to{" "}
-            <span className="text-accent">your needs.</span>
+            Solutions built for{" "}
+            <span className="text-accent">your business.</span>
           </SectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-            {services.map((service) => (
+            {servicesPreview.map((service) => (
               <ServiceCard key={service.title} {...service} />
             ))}
-          </div>
-          <div className="text-center mt-12">
-            <Link
-              href="/services"
-              className="border border-border text-text-secondary font-semibold text-sm uppercase tracking-wide px-8 py-3 rounded-md transition-all duration-200 hover:border-border-accent hover:text-accent inline-block"
-            >
-              View All Services
-            </Link>
           </div>
         </div>
       </section>
 
       {/* Why VoroscakIT */}
-      <section className="relative z-10 py-24 px-6 bg-secondary">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <SectionLabel text="Why VoroscakIT" />
-            <SectionTitle>
-              IT support that&apos;s{" "}
-              <span className="text-accent">personal.</span>
-            </SectionTitle>
-            <p className="text-text-secondary leading-relaxed mb-4">
-              When you work with VoroscakIT, you&apos;re not getting a faceless
-              help desk. You&apos;re getting a dedicated consultant who takes the
-              time to understand your business, your goals, and your pain
-              points.
-            </p>
-            <p className="text-text-secondary leading-relaxed">
-              No jargon, no runaround, no unnecessary upsells. Just practical
-              solutions that work — explained in plain English so you always
-              know what&apos;s happening with your technology.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((stat) => (
-              <StatBox key={stat.label} {...stat} />
-            ))}
+      <section className="relative z-10 py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <SectionLabel text="Why VoroscakIT" />
+              <SectionTitle>
+                Real expertise.{" "}
+                <span className="text-accent">Real results.</span>
+              </SectionTitle>
+              <p className="text-text-secondary text-[1.05rem] leading-relaxed mb-4">
+                No jargon, no upselling — just practical solutions tailored to
+                your needs. Whether you&apos;re a solo entrepreneur or a growing
+                team, I bring the same level of care and expertise to every
+                engagement.
+              </p>
+              <p className="text-text-secondary text-[1.05rem] leading-relaxed">
+                I work with you, not around you. That means understanding your
+                business first, then building the tech foundation to support it.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 gap-6">
+              {stats.map((stat) => (
+                <StatBox key={stat.label} {...stat} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Banner */}
-      <section className="relative z-10 py-24 px-6">
+      <section className="relative z-10 py-20 px-6 cta-gradient">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to simplify your{" "}
-            <span className="text-accent">tech?</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+            Ready to simplify your tech?
           </h2>
           <p className="text-text-secondary text-lg mb-8">
-            Let&apos;s talk about how VoroscakIT can help your business run
-            smoother.
+            Let&apos;s talk about how VoroscakIT can help your business thrive.
           </p>
-          <Link
-            href="/contact"
-            className="inline-block bg-accent text-primary font-semibold text-sm uppercase tracking-wide px-8 py-3 rounded-md transition-all duration-200 hover:shadow-[0_0_20px_rgba(78,205,196,0.3)] hover:-translate-y-0.5"
+          <a
+            href="#contact"
+            className="inline-block bg-accent text-primary font-semibold text-sm uppercase tracking-wide px-8 py-3 transition-all duration-300 hover:shadow-[0_0_40px_rgba(78,205,196,0.3)] hover:-translate-y-0.5"
           >
-            Get in Touch
-          </Link>
+            Schedule a Consultation
+          </a>
         </div>
       </section>
+
+      {/* ===== SERVICES ===== */}
+      <PageDivider label="Services" />
+      <ServicesSection />
+
+      {/* ===== ABOUT ===== */}
+      <PageDivider label="About" />
+      <AboutSection />
+
+      {/* ===== CONTACT ===== */}
+      <PageDivider label="Contact" />
+      <ContactSection />
     </>
   );
 }

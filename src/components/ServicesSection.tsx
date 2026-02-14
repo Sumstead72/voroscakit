@@ -4,26 +4,26 @@ import ServiceCard from "@/components/ServiceCard";
 
 const services = [
   {
-    icon: "🔧",
+    icon: "⚡",
     title: "IT Strategy & Consulting",
     description:
-      "Align your technology investments with business objectives. We evaluate your current infrastructure, identify gaps, and build a roadmap to get you where you need to be.",
+      "Comprehensive technology assessments and strategic planning to align IT with your business objectives.",
     bullets: [
-      "Technology audits & assessments",
+      "Technology audits",
       "Roadmap development",
       "Vendor selection & management",
       "Budget optimization",
     ],
   },
   {
-    icon: "🛡️",
+    icon: "🔒",
     title: "Cybersecurity Solutions",
     description:
-      "Protect your business from evolving threats with layered security strategies tailored to your risk profile and compliance requirements.",
+      "Protect your business from threats with proactive security measures and compliance-ready frameworks.",
     bullets: [
-      "Security assessments & penetration testing",
+      "Security assessments",
       "Firewall & endpoint protection",
-      "Employee security awareness training",
+      "Employee security training",
       "Incident response planning",
     ],
   },
@@ -31,55 +31,55 @@ const services = [
     icon: "☁️",
     title: "Cloud Infrastructure",
     description:
-      "Move to the cloud with confidence. We handle migration, setup, and ongoing management across all major cloud platforms.",
+      "Design, migrate, and manage cloud environments built for reliability and performance.",
     bullets: [
       "Cloud migration & setup",
-      "AWS / Azure / GCP management",
-      "Cost optimization & right-sizing",
-      "Hybrid cloud architecture",
+      "AWS / Azure / GCP",
+      "Cost optimization",
+      "Hybrid cloud solutions",
     ],
   },
   {
     icon: "🌐",
     title: "Network Management",
     description:
-      "Build and maintain reliable, secure networks that keep your team connected and your data flowing — whether you're in-office, remote, or hybrid.",
+      "Reliable, high-performance networks designed for your specific business requirements.",
     bullets: [
       "Network design & deployment",
       "Wi-Fi optimization",
-      "VPN & remote access setup",
-      "24/7 network monitoring",
+      "VPN & remote access",
+      "Monitoring & maintenance",
     ],
   },
   {
-    icon: "⚡",
+    icon: "⚙️",
     title: "Workflow Automation",
     description:
-      "Eliminate manual busywork with smart automation. We analyze your processes and build integrations that save hours every week.",
+      "Streamline operations by automating repetitive tasks and connecting your digital tools.",
     bullets: [
-      "Process analysis & optimization",
+      "Process analysis",
       "Integration & API setup",
       "Custom scripts & bots",
       "Reporting automation",
     ],
   },
   {
-    icon: "💻",
+    icon: "🛠️",
     title: "Tech Support & Troubleshooting",
     description:
-      "When things break, you need fast answers. Get responsive, no-nonsense support from someone who actually understands your setup.",
+      "Responsive, knowledgeable support to keep your systems running without interruption.",
     bullets: [
       "Remote & on-site support",
       "Hardware & software setup",
-      "Preventive maintenance",
+      "System maintenance",
       "Performance tuning",
     ],
   },
 ];
 
-export default function ServicesPage() {
+export default function ServicesSection() {
   return (
-    <section className="relative z-10 pt-32 pb-24 px-6">
+    <section id="services" className="relative z-10 py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <SectionLabel text="Services" />
         <SectionTitle>

@@ -5,7 +5,8 @@
 A modern, dark-themed website for VoroscakIT LLC — an IT consulting and services company run by Robert Voroscak. The site targets individuals and small businesses needing IT support, cybersecurity, cloud infrastructure, and workflow automation.
 
 **Live domain:** https://www.voroscakit.com/  
-**Design mockup:** See `mockup.html` in the project root for the approved visual direction.
+**Design mockup:** See `mockup.html` in the project root for the approved visual direction.  
+**Logo reference:** See `logo-hover.html` (Variant A) for the interactive hover-expand logo implementation.
 
 ## Tech Stack
 
@@ -61,23 +62,52 @@ The following MCP servers are available and should be used throughout developmen
 ### Color Palette (Tailwind CSS custom theme)
 
 ```
-bg-primary:     #0a0e17   (main background)
-bg-secondary:   #111827   (alternate sections)
-bg-card:        #151d2e   (card backgrounds)
-bg-card-hover:  #1a2440   (card hover state)
-accent:         #00e5ff   (cyan — primary accent)
-accent-dim:     rgba(0, 229, 255, 0.15)  (subtle accent backgrounds)
-accent-glow:    rgba(0, 229, 255, 0.3)   (glow/shadow effects)
-text-primary:   #e8ecf4   (headings, body text)
-text-secondary: #8892a8   (descriptions, secondary copy)
-text-muted:     #5a6478   (labels, fine print)
+bg-primary:     #0b1a2e   (main background)
+bg-secondary:   #0f2137   (alternate sections)
+bg-card:        #132a42   (card backgrounds)
+bg-card-hover:  #183454   (card hover state)
+accent:         #4ecdc4   (teal — primary accent)
+accent-dim:     rgba(78, 205, 196, 0.15)  (subtle accent backgrounds)
+accent-glow:    rgba(78, 205, 196, 0.3)   (glow/shadow effects)
+text-primary:   #ffffff   (headings, body text)
+text-secondary: #8fa4be   (descriptions, secondary copy)
+text-muted:     #5a7088   (labels, fine print)
 border:         rgba(255, 255, 255, 0.06) (card/section borders)
-border-accent:  rgba(0, 229, 255, 0.2)   (hover borders, accent lines)
+border-accent:  rgba(78, 205, 196, 0.2)   (hover borders, accent lines)
+```
+
+### Logo (Interactive Hover-Expand)
+
+The logo is an interactive terminal-prompt element that expands on hover. See `logo-hover.html` (Variant A) for the reference implementation.
+
+**Default state:** `>_` displayed in accent color with the underscore blinking (`animation: blink 1s step-end infinite`).
+
+**Hover state:** Smoothly expands to `>VoroscakIT_` with the following coloring:
+- `>` — accent (#4ecdc4)
+- `Voroscak` — text-primary (#ffffff)
+- `IT` — accent (#4ecdc4)
+- `_` — accent, blinking cursor (stays blinking throughout)
+- All accent elements get `text-shadow: 0 0 20px rgba(78, 205, 196, 0.3)`
+
+**Animation:** The expanded text ("VoroscakIT") is absolutely positioned starting after the `>`, so it overlays the page rather than pushing nav links. The `>` and `_` stay in normal flow (the nav layout never shifts). The expand uses:
+- `position: absolute` on `.expand-text`, anchored to `left: 1ch`
+- `max-width` transition: `0` → `12ch`, duration `0.5s`, easing `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+- `opacity` transition: `0` → `1`, duration `0.4s`
+- `overflow: hidden` on the expanding element
+- On mouse leave, the text collapses back to `>_`
+- **Critical:** The nav links and CTA must NOT shift when the logo expands
+
+**Font:** JetBrains Mono, bold. The logo links to `/` (home page).
+
+**Blink keyframes:**
+```css
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
 ```
 
 ### Typography
-
-- **Logo:** JetBrains Mono, bold. "Voroscak" in `text-primary`, "IT" in `accent` with `text-shadow: 0 0 20px accent-glow`
 - **Section labels:** JetBrains Mono, 0.75rem, uppercase, letter-spacing 3px, accent color, preceded by a 30px horizontal line
 - **Section titles:** Outfit, 2.8rem, font-weight 700, line-height 1.15, letter-spacing -1px. Key words in accent color.
 - **Body text:** Outfit, ~1rem–1.15rem, text-secondary, line-height 1.7
@@ -85,8 +115,8 @@ border-accent:  rgba(0, 229, 255, 0.2)   (hover borders, accent lines)
 
 ### Visual Effects
 
-- **Grid background:** Fixed full-screen overlay with subtle cyan grid lines (60px spacing, 0.03 opacity)
-- **Hero glow:** Radial gradient (cyan, 0.08 opacity), centered, with a slow 6s pulse animation
+- **Grid background:** Fixed full-screen overlay with subtle teal grid lines (60px spacing, 0.03 opacity)
+- **Hero glow:** Radial gradient (teal, 0.08 opacity), centered, with a slow 6s pulse animation
 - **Card hover:** Background shifts to `bg-card-hover`, border becomes `border-accent`, translateY(-4px), top 2px accent gradient line fades in
 - **Buttons (primary):** Solid cyan bg, dark text. On hover: glow shadow + translateY(-2px)
 - **Buttons (secondary):** Transparent with subtle border. On hover: border and text become accent
@@ -97,17 +127,18 @@ border-accent:  rgba(0, 229, 255, 0.2)   (hover borders, accent lines)
 - Desktop: default (3-column service grids, 2-column layouts)
 - Mobile (≤768px): single column, reduced padding, hamburger nav
 
-## Pages & Routes
+## Page Layout
 
-### 1. Home (`/`)
+The site is a **single-page scrolling layout** — all content (Home, About, Services, Contact) lives on one page (`/`) as distinct sections. Navigation links scroll to each section using anchor IDs (`#home`, `#about`, `#services`, `#contact`). See `mockup.html` for the reference layout with section dividers.
 
-**Sections in order:**
-1. **Hero** — Tagline: "Technology that works for you." Subtext about practical IT support. Two CTAs: "Get Started" (primary) → /contact, "Our Services" (secondary) → /services
-2. **Services Preview** — Label: "What We Do". 3-column grid of 6 service cards (icon, title, short description). Links to /services
-3. **Why VoroscakIT** — 2-column layout. Left: copy about the personal, no-jargon approach. Right: 2x2 stat grid (10+ Years Experience, 50+ Clients Served, 99% Uptime Guarantee, 24/7 Availability). Stats use JetBrains Mono, large cyan numbers.
-4. **CTA Banner** — "Ready to simplify your tech?" with accent button → /contact
+### Section 1: Hero (`#home`)
 
-### 2. About (`/about`)
+1. **Hero** — Tagline: "Technology that works for you." Subtext about practical IT support. Two CTAs: "Get Started" (primary) → scrolls to #contact, "Our Services" (secondary) → scrolls to #services
+2. **Services Preview** — Label: "What We Do". 3-column grid of 6 service cards (icon, title, short description)
+3. **Why VoroscakIT** — 2-column layout. Left: copy about the personal, no-jargon approach. Right: 2x2 stat grid (10+ Years Experience, 50+ Clients Served, 99% Uptime Guarantee, 24/7 Availability). Stats use JetBrains Mono, large teal numbers.
+4. **CTA Banner** — "Ready to simplify your tech?" with accent button → scrolls to #contact
+
+### Section 2: About (`#about`)
 
 **Sections:**
 1. **Header** — Label: "About". Title: "The person behind the solutions."
@@ -115,7 +146,7 @@ border-accent:  rgba(0, 229, 255, 0.2)   (hover borders, accent lines)
 3. **Bio Content** — Name: Robert Voroscak, Role: "Founder & IT Consultant" (JetBrains Mono, accent). 3 paragraphs about experience, philosophy, approach. All placeholder — owner will update.
 4. **Expertise Tags** — Flex-wrap row of tags: Network Architecture, Cybersecurity, Cloud / AWS / Azure, Automation, IT Strategy, Systems Admin. Styled as small bordered pills (JetBrains Mono, uppercase, 0.7rem)
 
-### 3. Services (`/services`)
+### Section 3: Services (`#services`)
 
 **Sections:**
 1. **Header** — Label: "Services". Title: "What I can do for your business."
@@ -129,7 +160,7 @@ border-accent:  rgba(0, 229, 255, 0.2)   (hover borders, accent lines)
 - Workflow Automation (process analysis, integration & API setup, custom scripts & bots, reporting automation)
 - Tech Support & Troubleshooting (remote & on-site support, hardware/software setup, maintenance, performance tuning)
 
-### 4. Contact (`/contact`)
+### Section 4: Contact (`#contact`)
 
 **Sections:**
 1. **Header** — Label: "Contact". Title: "Let's work together."
@@ -143,37 +174,38 @@ border-accent:  rgba(0, 229, 255, 0.2)   (hover borders, accent lines)
 
 **Form handling:** Next.js API route at `/api/contact` — accepts POST, validates fields, returns success/error JSON. For now, just log the submission. Can wire up Resend/SendGrid later.
 
+**Navigation:** All nav links use smooth-scroll anchor links (`href="#about"`, etc.). Use `scroll-behavior: smooth` on `html` and optionally offset scroll position to account for the fixed navbar height.
+
 ## Project Structure
 
 ```
 voroscakit/
 ├── CLAUDE.md
 ├── mockup.html
+├── logo-hover.html
 ├── public/
 │   └── favicon.ico
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx          # Root layout (fonts, metadata, nav, footer, grid bg)
-│   │   ├── page.tsx            # Home (hero, services preview, why, CTA)
-│   │   ├── about/
-│   │   │   └── page.tsx
-│   │   ├── services/
-│   │   │   └── page.tsx
-│   │   ├── contact/
-│   │   │   └── page.tsx
+│   │   ├── layout.tsx          # Root layout (fonts, metadata, grid bg)
+│   │   ├── page.tsx            # Single page (all sections: hero, about, services, contact)
 │   │   ├── api/
 │   │   │   └── contact/
 │   │   │       └── route.ts    # POST handler for contact form
 │   │   └── globals.css         # Tailwind directives + custom CSS (grid bg, glow effects)
 │   └── components/
-│       ├── Navbar.tsx           # Fixed nav with logo, links, CTA button, mobile hamburger
+│       ├── Navbar.tsx           # Fixed nav with hover-expand logo (>_ → >VoroscakIT_), anchor links, CTA, mobile hamburger
 │       ├── Footer.tsx           # Logo + copyright
 │       ├── HeroSection.tsx      # Hero with glow, tagline, CTAs
+│       ├── AboutSection.tsx     # Bio, photo placeholder, expertise tags
+│       ├── ServicesSection.tsx   # Services grid with cards
+│       ├── ContactSection.tsx   # Contact info + form
 │       ├── ServiceCard.tsx      # Reusable card (icon, title, description, optional bullet list)
 │       ├── SectionLabel.tsx     # Reusable "// Label" with accent line
 │       ├── SectionTitle.tsx     # Reusable title with accent word support
 │       ├── StatBox.tsx          # Single stat (number + label)
-│       └── ContactForm.tsx      # Form with client-side validation + API submission
+│       ├── ContactForm.tsx      # Form with client-side validation + API submission
+│       └── Logo.tsx             # Hover-expand logo component (>_ → >VoroscakIT_)
 ├── tailwind.config.ts           # Extended theme with custom colors, fonts
 ├── next.config.ts
 ├── tsconfig.json
@@ -182,12 +214,15 @@ voroscakit/
 
 ## Component Guidelines
 
-- All components should be React Server Components by default; only add `"use client"` when needed (Navbar mobile toggle, ContactForm)
+- All components should be React Server Components by default; only add `"use client"` when needed (Navbar mobile toggle, ContactForm, Logo hover)
+- The site is a single-page layout — `page.tsx` imports and renders all section components in order with appropriate `id` attributes for anchor navigation
 - Use Tailwind utility classes. Extend the theme in `tailwind.config.ts` for the custom color palette — do NOT use arbitrary values repeatedly.
 - Import fonts via `next/font/google` in `layout.tsx` and pass as CSS variables to Tailwind
-- Keep components small and composable. `ServiceCard` should accept props for both the preview (home) and full (services page) variants.
+- Keep components small and composable. `ServiceCard` should accept props for both the preview (hero area) and full (services section) variants.
+- The `Logo` component should be extracted as a shared component used in both Navbar and Footer
 - Animations: use Tailwind's built-in animation utilities or add custom keyframes in `globals.css`. The hero staggered fadeUp is essential.
-- All text content is placeholder and will be updated by the owner. Keep copy in the page components (not a CMS) for simplicity.
+- Navigation links should use `scroll-behavior: smooth` with scroll offset for the fixed navbar height
+- All text content is placeholder and will be updated by the owner. Keep copy in the section components (not a CMS) for simplicity.
 
 ## Deployment
 

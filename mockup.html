@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoroscakIT — Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0b1a2e;
+    --bg-secondary: #0f2137;
+    --bg-card: #132a42;
+    --bg-card-hover: #183454;
+    --accent: #4ecdc4;
+    --accent-dim: rgba(78, 205, 196, 0.15);
+    --accent-glow: rgba(78, 205, 196, 0.3);
+    --text-primary: #ffffff;
+    --text-secondary: #8fa4be;
+    --text-muted: #5a7088;
+    --border: rgba(255, 255, 255, 0.06);
+    --border-accent: rgba(78, 205, 196, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ===== GRID BACKGROUND ===== */
+  .grid-bg {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(78, 205, 196, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(78, 205, 196, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(11, 26, 46, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    display: inline-flex;
+    align-items: baseline;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .logo .prompt {
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent-glow);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo .expand-text {
+    display: inline-block;
+    max-width: 0;
+    overflow: hidden;
+    transition: max-width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.4s ease;
+    opacity: 0;
+    white-space: nowrap;
+    position: absolute;
+    left: 1ch;
+    z-index: 1;
+  }
+
+  .logo .expand-text .white { color: var(--text-primary); }
+  .logo .expand-text .accent {
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent-glow);
+  }
+
+  .logo .cursor {
+    color: var(--accent);
+    animation: blink 1s step-end infinite;
+    text-shadow: 0 0 10px var(--accent-glow);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo:hover .expand-text {
+    max-width: 12ch;
+    opacity: 1;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+    box-shadow: 0 0 8px var(--accent-glow);
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.6rem 1.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent);
+    color: var(--bg-primary);
+    box-shadow: 0 0 30px var(--accent-glow);
+  }
+
+  /* ===== SECTIONS ===== */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+  }
+
+  .section-title .accent { color: var(--accent); }
+
+  /* ===== PAGE DIVIDER ===== */
+  .page-divider {
+    text-align: center;
+    padding: 2rem 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-divider span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: var(--bg-primary);
+    padding: 0 1.5rem;
+    position: relative;
+  }
+
+  .page-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(78, 205, 196, 0.08) 0%, transparent 70%);
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 800px;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+
+  .hero h1 {
+    font-size: 4.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+
+  .hero h1 .accent {
+    color: var(--accent);
+    text-shadow: 0 0 40px var(--accent-glow);
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    padding: 0.9rem 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 40px var(--accent-glow), 0 4px 20px rgba(78, 205, 196, 0.2);
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 0.9rem 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== SERVICES PREVIEW (Home) ===== */
+  .services-preview {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .service-card:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-accent);
+    transform: translateY(-4px);
+  }
+
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+    font-size: 1.2rem;
+    background: var(--accent-dim);
+  }
+
+  .service-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ===== WHY SECTION ===== */
+  .why-section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-top: 3rem;
+  }
+
+  .why-text p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .why-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .stat-box .number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    text-shadow: 0 0 30px var(--accent-glow);
+  }
+
+  .stat-box .label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
+    display: block;
+  }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner {
+    padding: 5rem 3rem;
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(78, 205, 196, 0.03), transparent);
+    position: relative;
+  }
+
+  .cta-banner h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+
+  .cta-banner p {
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ===== ABOUT SECTION ===== */
+  .about-section {
+    padding: 6rem 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .about-content {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  .about-photo {
+    width: 280px;
+    height: 340px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .about-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--border-accent);
+    transform: translate(12px, 12px);
+  }
+
+  .photo-placeholder {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .about-bio h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .about-bio .role {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .about-bio p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+
+  .expertise-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* ===== SERVICES FULL ===== */
+  .services-full {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .services-full .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .service-card-full {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    transition: all 0.4s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card-full::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .service-card-full:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-accent);
+    transform: translateY(-4px);
+  }
+
+  .service-card-full:hover::before { opacity: 1; }
+
+  .service-card-full .service-icon { margin-bottom: 1.5rem; }
+
+  .service-card-full h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .service-card-full p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-card-full ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .service-card-full ul li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .service-card-full ul li::before {
+    content: '›';
+    color: var(--accent);
+    font-weight: bold;
+  }
+
+  /* ===== CONTACT ===== */
+  .contact-section {
+    padding: 6rem 3rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 3rem;
+  }
+
+  .contact-info-item {
+    margin-bottom: 2rem;
+  }
+
+  .contact-info-item .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .contact-info-item .value {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.9rem 1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-dim);
+  }
+
+  .form-group textarea {
+    height: 140px;
+    resize: vertical;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer .logo {
+    font-size: 1.1rem;
+  }
+
+  footer p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  /* ===== SCROLLBAR ===== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: var(--bg-card-hover); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero h1 { font-size: 2.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .about-content { grid-template-columns: 1fr; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .section-title { font-size: 2rem; }
+    .services-preview, .why-section, .about-section, .services-full, .contact-section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div class="logo"><span class="prompt">&gt;</span><span class="expand-text"><span class="white">Voroscak</span><span class="accent">IT</span></span><span class="cursor">_</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta">Get in Touch</button>
+</nav>
+
+<!-- ===== HOME PAGE ===== -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">// IT Consulting &amp; Services</div>
+    <h1>Technology that<br>works <span class="accent">for you.</span></h1>
+    <p>Practical, hands-on IT support for individuals and small businesses. From securing systems to automating workflows — clear guidance that saves time and money.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Get Started</button>
+      <button class="btn-secondary">Our Services</button>
+    </div>
+  </div>
+</section>
+
+<!-- Services Preview -->
+<section class="services-preview">
+  <div class="section-label">What We Do</div>
+  <div class="section-title">Solutions built for<br><span class="accent">your business.</span></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">⚡</div>
+      <h3>IT Strategy & Consulting</h3>
+      <p>Align your technology roadmap with business goals. Smart planning for sustainable growth.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔒</div>
+      <h3>Cybersecurity</h3>
+      <p>Protect your data and systems with proactive security measures and best practices.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">☁️</div>
+      <h3>Cloud Infrastructure</h3>
+      <p>Migrate, manage, and optimize your cloud environment for performance and cost efficiency.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <h3>Network Management</h3>
+      <p>Design, deploy, and maintain reliable networks that keep your business connected.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">⚙️</div>
+      <h3>Workflow Automation</h3>
+      <p>Eliminate repetitive tasks and streamline operations with intelligent automation solutions.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛠️</div>
+      <h3>Tech Support</h3>
+      <p>Fast, reliable troubleshooting and ongoing support to keep everything running smoothly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Why VoroscakIT -->
+<section class="why-section">
+  <div class="why-grid">
+    <div class="why-text">
+      <div class="section-label">Why VoroscakIT</div>
+      <div class="section-title">Real expertise.<br><span class="accent">Real results.</span></div>
+      <p>No jargon, no upselling — just practical solutions tailored to your needs. Whether you're a solo entrepreneur or a growing team, I bring the same level of care and expertise to every engagement.</p>
+      <p>I work with you, not around you. That means understanding your business first, then building the tech foundation to support it.</p>
+    </div>
+    <div class="why-stats">
+      <div class="stat-box">
+        <span class="number">10+</span>
+        <span class="label">Years Experience</span>
+      </div>
+      <div class="stat-box">
+        <span class="number">50+</span>
+        <span class="label">Clients Served</span>
+      </div>
+      <div class="stat-box">
+        <span class="number">99%</span>
+        <span class="label">Uptime Guarantee</span>
+      </div>
+      <div class="stat-box">
+        <span class="number">24/7</span>
+        <span class="label">Availability</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <h2>Ready to simplify your tech?</h2>
+  <p>Let's talk about how VoroscakIT can help your business thrive.</p>
+  <button class="btn-primary">Schedule a Consultation</button>
+</section>
+
+<!-- ===== PAGE DIVIDER: ABOUT ===== -->
+<div class="page-divider"><span>/ About Page /</span></div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<section class="about-section" id="about">
+  <div class="section-label">About</div>
+  <div class="section-title">The person behind<br><span class="accent">the solutions.</span></div>
+
+  <div class="about-content">
+    <div class="about-photo">
+      <span class="photo-placeholder">[ Your Photo ]</span>
+    </div>
+    <div class="about-bio">
+      <h3>Robert Voroscak</h3>
+      <span class="role">Founder & IT Consultant</span>
+      <p>With over a decade of experience in IT infrastructure, cybersecurity, and digital transformation, I founded VoroscakIT to give individuals and small businesses access to enterprise-level tech expertise — without the enterprise price tag.</p>
+      <p>I believe technology should empower, not overwhelm. My approach is straightforward: understand the problem, design a practical solution, and implement it with precision. No unnecessary complexity, no vendor lock-in — just results.</p>
+      <p>When I'm not helping clients optimize their tech stack, you'll find me staying current with the latest in cloud infrastructure, security frameworks, and automation tools.</p>
+      <div class="expertise-tags">
+        <span class="tag">Network Architecture</span>
+        <span class="tag">Cybersecurity</span>
+        <span class="tag">Cloud / AWS / Azure</span>
+        <span class="tag">Automation</span>
+        <span class="tag">IT Strategy</span>
+        <span class="tag">Systems Admin</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PAGE DIVIDER: SERVICES ===== -->
+<div class="page-divider"><span>/ Services Page /</span></div>
+
+<!-- ===== SERVICES PAGE ===== -->
+<section class="services-full" id="services">
+  <div class="section-label">Services</div>
+  <div class="section-title">What I can do<br><span class="accent">for your business.</span></div>
+
+  <div class="services-grid">
+    <div class="service-card-full">
+      <div class="service-icon">⚡</div>
+      <h3>IT Strategy & Consulting</h3>
+      <p>Comprehensive technology assessments and strategic planning to align IT with your business objectives.</p>
+      <ul>
+        <li>Technology audits</li>
+        <li>Roadmap development</li>
+        <li>Vendor selection & management</li>
+        <li>Budget optimization</li>
+      </ul>
+    </div>
+    <div class="service-card-full">
+      <div class="service-icon">🔒</div>
+      <h3>Cybersecurity Solutions</h3>
+      <p>Protect your business from threats with proactive security measures and compliance-ready frameworks.</p>
+      <ul>
+        <li>Security assessments</li>
+        <li>Firewall & endpoint protection</li>
+        <li>Employee security training</li>
+        <li>Incident response planning</li>
+      </ul>
+    </div>
+    <div class="service-card-full">
+      <div class="service-icon">☁️</div>
+      <h3>Cloud Infrastructure</h3>
+      <p>Design, migrate, and manage cloud environments built for reliability and performance.</p>
+      <ul>
+        <li>Cloud migration & setup</li>
+        <li>AWS / Azure / GCP</li>
+        <li>Cost optimization</li>
+        <li>Hybrid cloud solutions</li>
+      </ul>
+    </div>
+    <div class="service-card-full">
+      <div class="service-icon">🌐</div>
+      <h3>Network Management</h3>
+      <p>Reliable, high-performance networks designed for your specific business requirements.</p>
+      <ul>
+        <li>Network design & deployment</li>
+        <li>Wi-Fi optimization</li>
+        <li>VPN & remote access</li>
+        <li>Monitoring & maintenance</li>
+      </ul>
+    </div>
+    <div class="service-card-full">
+      <div class="service-icon">⚙️</div>
+      <h3>Workflow Automation</h3>
+      <p>Streamline operations by automating repetitive tasks and connecting your digital tools.</p>
+      <ul>
+        <li>Process analysis</li>
+        <li>Integration & API setup</li>
+        <li>Custom scripts & bots</li>
+        <li>Reporting automation</li>
+      </ul>
+    </div>
+    <div class="service-card-full">
+      <div class="service-icon">🛠️</div>
+      <h3>Tech Support & Troubleshooting</h3>
+      <p>Responsive, knowledgeable support to keep your systems running without interruption.</p>
+      <ul>
+        <li>Remote & on-site support</li>
+        <li>Hardware & software setup</li>
+        <li>System maintenance</li>
+        <li>Performance tuning</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PAGE DIVIDER: CONTACT ===== -->
+<div class="page-divider"><span>/ Contact Page /</span></div>
+
+<!-- ===== CONTACT PAGE ===== -->
+<section class="contact-section" id="contact">
+  <div class="section-label">Contact</div>
+  <div class="section-title">Let's work<br><span class="accent">together.</span></div>
+
+  <div class="contact-layout">
+    <div class="contact-info">
+      <div class="contact-info-item">
+        <span class="label">Email</span>
+        <span class="value">robert@voroscakit.com</span>
+      </div>
+      <div class="contact-info-item">
+        <span class="label">Phone</span>
+        <span class="value">267-540-3247</span>
+      </div>
+      <div class="contact-info-item">
+        <span class="label">Based In</span>
+        <span class="value">Pennsylvania, USA</span>
+      </div>
+      <div class="contact-info-item">
+        <span class="label">Availability</span>
+        <span class="value">Mon – Fri, 9am – 6pm EST</span>
+      </div>
+    </div>
+
+    <form class="contact-form" onsubmit="event.preventDefault();">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" placeholder="(optional)">
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell me about your project or challenge..."></textarea>
+      </div>
+      <button class="btn-primary" type="submit" style="width: 100%;">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="logo"><span class="prompt">&gt;</span><span class="expand-text"><span class="white">Voroscak</span><span class="accent">IT</span></span><span class="cursor">_</span></div>
+  <p>&copy; 2025 VoroscakIT LLC. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
